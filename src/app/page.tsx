@@ -1,5 +1,10 @@
-import Image from "next/image";
+import GlobalHeader from "@/Components/header";
 
 export default function Home() {
-  return;
+  return (
+    <>
+      <GlobalHeader />
+      <main></main>
+    </>
+  );
 }
