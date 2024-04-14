@@ -37,3 +37,6 @@ next-env.d.ts
 
 # vscode task
 /.vscode/
+
+# env files
+.env
