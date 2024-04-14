@@ -4,35 +4,29 @@ import GlobalHeader from "@/Components/header";
 import { getWeatherData } from "@/services/WeatherAPI";
 import { useEffect, useState } from "react";
 
+interface WeatherData {
+  cod: string;
+  name: string;
+}
+
 export default function Home() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<WeatherData | null>(null);
 
-  // useEffect(() => {
-  //   setData(getWeatherData());
-  // });
-
-  // const data = getWeatherData();
-  // console.log(data.then);
   useEffect(() => {
     const fetchData = async () => {
       const data = await getWeatherData();
-      // const data = res.json();
       setData(data);
-
-      console.log(data);
     };
 
     fetchData();
-    // console.log(data);
   }, []);
+
   return (
     <>
       <GlobalHeader />
       <main>
-        <span className="text-white" id="countryName">
-          {/* {data.name} */}
-        </span>
-        <span className="text-white" id="countryName2"></span>
+        <span className="text-white">{data && data.name}</span>
+        <span className="text-white">{data && data.cod}</span>
       </main>
     </>
   );
