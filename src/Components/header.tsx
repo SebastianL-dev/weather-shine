@@ -17,6 +17,7 @@ export default function GlobalHeader() {
           </ul>
         </nav>
       </div>
+      <div></div>
     </header>
   );
 }
