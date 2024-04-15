@@ -1,14 +1,15 @@
 import { poppins } from "@/styles/fonts";
 import { NavButtons } from "./buttons";
+import SearchBar from "./search";
 
 export default function GlobalHeader() {
   return (
-    <header className="">
-      <div className="flex gap-20 text-white p-4 mx-28 w-calc(100% - margin) items-center">
+    <header className="flex fixed w-full">
+      <div className="flex text-white p-4 mx-auto w-full items-center justify-around">
         <h1 className=" text-3xl">WeatherShine</h1>
         <nav className=" h-min">
           <ul
-            className={`flex gap-2 ${poppins.className} antialiased text-sm text-neutral-400 font-semibold`}
+            className={`flex gap-2 ${poppins.className} antialiased text-sm text-neutral-400 font-medium`}
           >
             <NavButtons text="Home" />
             <NavButtons text="Home" />
@@ -16,8 +17,10 @@ export default function GlobalHeader() {
             <NavButtons text="Home" />
           </ul>
         </nav>
+        <div>
+          <SearchBar />
+        </div>
       </div>
-      <div></div>
     </header>
   );
 }
