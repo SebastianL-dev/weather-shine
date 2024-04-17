@@ -1,12 +1,10 @@
 import { CiTempHigh } from "react-icons/ci";
 import { Separator1 } from "./separatos";
-import { FaRegClock, FaTemperatureHigh } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
 import { IoIosCalendar } from "react-icons/io";
 import { MdPlace, MdSpeed } from "react-icons/md";
 import { ReactElement } from "react";
-import { WiHumidity } from "react-icons/wi";
-import { BsWallet, BsWater } from "react-icons/bs";
-import { RiWaterPercentFill, RiWaterPercentLine } from "react-icons/ri";
+import { RiWaterPercentLine } from "react-icons/ri";
 import { TbCircuitGround } from "react-icons/tb";
 import { LuWaves } from "react-icons/lu";
 
@@ -19,9 +17,9 @@ export function GeneralInfo() {
           Sogamoso - Boyacá - Colombia
         </h1>
       </div>
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-8 h-max items-end">
         <TempInfo />
-        <div className="grid gap-2 w-calc(100% + 20px)">
+        <div className="grid gap-2 w-calc(100% + 20px) items-end">
           <MiniCard
             tittle="Pressure"
             image={<MdSpeed className="w-5 h-5 text-neutral-400" />}
@@ -93,7 +91,7 @@ export function MiniCard({
 
 export function TempInfo() {
   return (
-    <div className="flex w-max items-center text-neutral-200 flex-col gap-10 h-full">
+    <div className="flex text-neutral-200 flex-col h-full self-start gap-16 ">
       <div className="flex w-max items-center text-neutral-200 self-start">
         <span className="text-6xl font-semibold">20</span>
         <span className="text-4xl font-semibold self-start mt-2">°C</span>
@@ -105,8 +103,8 @@ export function TempInfo() {
         info=""
         temp={
           <div className="flex w-max items-center self-center">
-            <span className="font-semibold text-lg">21</span>
-            <span className="font-semibold text-base self-start">°C</span>
+            <span className="font-semibold text-sm">21</span>
+            <span className="font-semibold text-xs self-start">°C</span>
           </div>
         }
       />
