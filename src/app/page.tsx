@@ -1,41 +1,35 @@
 "use client";
 
-import { GeneralInfo } from "@/Components/cards";
+import { GeneralInfo, WindCard } from "@/Components/cards";
 import GlobalHeader from "@/Components/header";
 import { getWeatherData } from "@/services/WeatherAPI";
 import { poppins } from "@/styles/fonts";
 import { useEffect, useState } from "react";
 
 interface WeatherData {
-  cod: number;
   name: string;
   timezone: number;
+  sys: {
+    country: string;
+  };
   main: {
-    temp_min: number;
+    feels_like: number;
     temp: number;
-    temp_max: number;
+    pressure: number;
+    humidity: number;
   };
 }
 
 export default function Home() {
   const [data, setData] = useState<WeatherData | null>(null);
-  const [input, setInput] = useState("");
 
   useEffect(() => {
-    fetchData("colombia");
+    fetchData("caracas");
   }, []);
 
   const fetchData = async (value: string) => {
     const data = await getWeatherData(value);
     setData(data);
-  };
-
-  const Update = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      const inputValue = event.currentTarget.value;
-      setInput(inputValue);
-      fetchData(inputValue);
-    }
   };
 
   return (
@@ -44,15 +38,15 @@ export default function Home() {
       <main
         className={`flex flex-col gap-6 pt-40 ${poppins.className} antialiased mx-auto w-max`}
       >
-        {/* <span className="text-white">{data && data.name}</span>
-        <span className="text-white">{data && data.main.temp_min}</span>
-        <span className="text-white">{data && data.main.temp}</span>
-        <span className="text-white">{data && data.main.temp_max}</span>
-        <span className="text-white">{data && data.timezone}</span>
-        <input type="text" name="" id="" onKeyDown={Update} />
-        <span className="text-white">{input}</span> */}
-        <section>
-          <GeneralInfo />
+        <section className="flex gap-12">
+          <GeneralInfo
+            name={`${data && data.name} - ${data && data.sys.country}`}
+            temp={data && data.main.temp}
+            like={data && data.main.feels_like}
+            pressure={data && data.main.pressure}
+            humidity={data && data.main.humidity}
+          />
+          <WindCard />
         </section>
       </main>
     </>
