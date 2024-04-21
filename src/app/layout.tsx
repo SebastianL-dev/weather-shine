@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../styles/globals.css";
+import { WeatherProvider } from "@/contexts/weatherCtx";
 
 export const metadata: Metadata = {
   title: "WheatherShine",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" bg-neutral-900">{children}</body>
+      <body className=" bg-neutral-900">
+        <WeatherProvider>{children}</WeatherProvider>
+      </body>
     </html>
   );
 }

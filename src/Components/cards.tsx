@@ -17,11 +17,11 @@ export function GeneralInfo({
 }: // seaLevel,
 // grndLevel,
 {
-  name: string | null;
-  temp: number | null;
-  like: number | null;
-  pressure: number | null;
-  humidity: number | null;
+  name?: string;
+  temp?: number;
+  like?: number;
+  pressure?: number;
+  humidity?: number;
   // seaLevel: number | null;
   // grndLevel: number | null;
 }) {
@@ -121,13 +121,7 @@ export function MiniCard({
   );
 }
 
-export function TempInfo({
-  temp,
-  like,
-}: {
-  temp: number | null;
-  like: number | null;
-}) {
+export function TempInfo({ temp, like }: { temp?: number; like?: number }) {
   return (
     <div className="flex text-neutral-200 flex-col h-full self-start gap-16 ">
       <div className="flex w-max items-center text-neutral-200 self-start">
