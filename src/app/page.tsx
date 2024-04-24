@@ -7,6 +7,7 @@ import { useWeatherContext } from "@/contexts/weatherCtx";
 
 export default function Home() {
   const { weatherData } = useWeatherContext();
+  // let visibility = weatherData && weatherData.visibility;
 
   return (
     <>
@@ -23,6 +24,9 @@ export default function Home() {
             like={weatherData && weatherData.main.feels_like}
             pressure={weatherData && weatherData.main.pressure}
             humidity={weatherData && weatherData.main.humidity}
+            visibility={
+              weatherData && (weatherData.visibility / 1000).toFixed(2)
+            }
           />
           <WindCard />
         </section>

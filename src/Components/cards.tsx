@@ -14,6 +14,7 @@ export function GeneralInfo({
   like,
   pressure,
   humidity,
+  visibility,
 }: // seaLevel,
 // grndLevel,
 {
@@ -22,6 +23,7 @@ export function GeneralInfo({
   like?: number;
   pressure?: number;
   humidity?: number;
+  visibility?: string;
   // seaLevel: number | null;
   // grndLevel: number | null;
 }) {
@@ -51,14 +53,14 @@ export function GeneralInfo({
                 temp={<></>}
               />
               <MiniCard
-                tittle="Sea level"
-                image={<LuWaves className="w-5 h-5 text-neutral-400" />}
-                info=""
+                tittle="Visibility"
+                image={<TbCircuitGround className="w-5 h-5 text-neutral-400" />}
+                info={`${visibility} Km`}
                 temp={<></>}
               />
               <MiniCard
-                tittle="Ground level"
-                image={<TbCircuitGround className="w-5 h-5 text-neutral-400" />}
+                tittle="Sea level"
+                image={<LuWaves className="w-5 h-5 text-neutral-400" />}
                 info=""
                 temp={<></>}
               />

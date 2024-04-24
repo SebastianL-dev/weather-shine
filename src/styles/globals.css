@@ -7,3 +7,7 @@
     text-wrap: balance;
   }
 }
+
+.asd {
+  text-overflow: ellipsis;
+}

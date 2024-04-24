@@ -1,18 +1,15 @@
 import { FaSearch } from "react-icons/fa";
-import {
-  getCountry,
-  getCountryData,
-  getWeatherData,
-} from "@/services/WeatherAPI";
-import React, { ReactNode, useEffect, useState } from "react";
+import { getCountry, getWeatherData } from "@/services/WeatherAPI";
+import React, { useState } from "react";
 import { useWeatherContext } from "@/contexts/weatherCtx";
-import { ICountryData } from "@/interfaces/WeatherData";
-import { MdPlace } from "react-icons/md";
-import { count } from "console";
+import { ICountryData, ICountryName } from "@/interfaces/WeatherData";
+import Image from "next/image";
+import { CountryCode } from "@/services/Countries";
 
 export default function SearchBar() {
   const [input, setInput] = useState("");
   const [country, setCountry] = useState<ICountryData>();
+  const [countryName, setCountryName] = useState<ICountryName>();
 
   const { setWeatherData } = useWeatherContext();
 
@@ -24,11 +21,6 @@ export default function SearchBar() {
   const fetchCountry = async (value: string) => {
     const data = await getCountry(value);
     setCountry(data);
-
-    // Solve issues
-    if (data != undefined) {
-      const countryInfo = await getCountryData(data[0].country);
-    }
   };
 
   const Update = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -52,39 +44,76 @@ export default function SearchBar() {
     }
   };
 
+  const clickCity = (value: string) => {
+    fetchData(value);
+  };
+
+  const searchColor = input == "" ? "4a74ff" : "fff ",
+    searchStyle = input == "" ? "rounded-lg" : "rounded-t-lg",
+    dropStyle = input == "" ? "opacity-0 hidden" : "opacity-100 block";
+
   return (
     <form action="" className="flex flex-col relative">
-      <div className="flex items-center">
+      <div
+        className={`flex items-center ${searchStyle} bg-[#222] transition-all`}
+      >
         <button
-          className="px-[10px] py-[10px] bg-[#4a74ff] rounded-s-lg"
+          className={`px-[10px] py-[10px] text-[#${searchColor}] transition-all`}
           onClick={ClickUpdate}
         >
           <FaSearch className="w-4 h-4" />
         </button>
         <input
           type="text"
-          className="bg-[#222] rounded-e-lg text-neutral-200 placeholder:text-neutral-500 text-sm font-medium px-4 py-2 placeholder:w-min outline-none "
+          className="text-neutral-200 bg-transparent placeholder:text-neutral-500 text-sm font-medium pr-16 py-2 placeholder:w-min outline-none "
           placeholder="Search your city..."
           onKeyDown={Update}
           onChange={ChangeUpdate}
           value={input}
         />
       </div>
-      <div className="flex items-start w-full absolute top-10">
-        <ul className="flex flex-col gap-2 bg bg-[#222] w-full">
+      <div
+        className={`flex items-start w-full absolute top-12 ${dropStyle} transition-all duration-200`}
+      >
+        <ul className="flex flex-col gap-2 bg bg-[#202020] w-full rounded-b-lg transition-all">
           {country &&
-            country.map((country, index) => {
+            country.map((countryD, index) => {
+              const { country, state, name } = countryD;
+              const comma = state ? ", " : "";
+              function getCountryName(code: string) {
+                return CountryCode[code];
+              }
+
               return (
-                <li className="flex gap-3 px-2 py-2 items-center" key={index}>
-                  <MdPlace className="h-6 w-6 text-[#4a74ff]" />
-                  <div className="flex flex-col pl-2">
-                    <span className="font-semibold text-neutral-200 text-sm">
-                      {country.name}
-                    </span>
-                    <span className="text-xs font-semibold text-neutral-500">
-                      {country.state}, {country.country}
-                    </span>
-                  </div>
+                <li
+                  className="flex gap-2 items-center hover:bg-[#2c2c2c] transition-all duration-200"
+                  key={index}
+                >
+                  <button
+                    className="flex items-center gap-4 w-full transition-all px-4 py-3"
+                    onClick={() => {
+                      event?.preventDefault();
+                      clickCity(name + "," + getCountryName(country));
+                    }}
+                  >
+                    <Image
+                      src={`https://flagcdn.com/${country.toLowerCase()}.svg`}
+                      width={28}
+                      height={15}
+                      alt=""
+                      className="transition-all w-8 h-auto"
+                    />
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-neutral-200 text-sm text-nowrap max-w-[175px] truncate text-start">
+                        {name}
+                      </span>
+                      <p className="text-xs font-semibold text-neutral-500 text-nowrap max-w-[175px] truncate text-start">
+                        {state}
+                        {comma}
+                        {getCountryName(country)}
+                      </p>
+                    </div>
+                  </button>
                 </li>
               );
             })}
