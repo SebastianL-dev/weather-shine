@@ -1,9 +1,15 @@
 export interface IWeatherData {
+  coord: {
+    lon?: number;
+    lat?: number;
+  };
   name: string;
   timezone: number;
   dt: number;
   sys: {
-    country: string;
+    country?: string;
+    sunrise?: number;
+    sunset?: number;
   };
   main: {
     feels_like: number;
@@ -12,6 +18,10 @@ export interface IWeatherData {
     humidity: number;
   };
   visibility: number;
+  wind: {
+    speed: number;
+    deg: number;
+  };
 }
 
 export type ICountryData = [ICountry];
@@ -22,10 +32,10 @@ export interface ICountry {
   country: string;
 }
 
-export interface ICountryName {
-  0: {
-    name: {
-      common: string;
-    };
-  };
-}
+// export interface ICountryName {
+//   0: {
+//     name: {
+//       common: string;
+//     };
+//   };
+// }

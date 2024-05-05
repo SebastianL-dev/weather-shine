@@ -9,5 +9,5 @@
 }
 
 .asd {
-  text-overflow: ellipsis;
+  transform: rotate(45deg);
 }
