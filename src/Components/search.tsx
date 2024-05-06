@@ -2,6 +2,7 @@ import { FaSearch } from "react-icons/fa";
 import {
   getAirPollution,
   getCountry,
+  getForecast,
   getWeatherData,
 } from "@/services/WeatherAPI";
 import React, { useState } from "react";
@@ -10,26 +11,39 @@ import { ICountryData } from "@/interfaces/WeatherData";
 import Image from "next/image";
 import { CountryCode } from "@/services/Countries";
 import { useAirContext } from "@/contexts/airCtx";
+import { useForecastContext } from "@/contexts/forecastCtx";
 
 export default function SearchBar() {
   const [input, setInput] = useState("");
   const [country, setCountry] = useState<ICountryData>();
   const { weatherData } = useWeatherContext();
-  // const [countryName, setCountryName] = useState<ICountryName>();
+
+  const [lat, setLat] = useState<number>();
+  const [lon, setLon] = useState<number>();
 
   const { setWeatherData } = useWeatherContext();
   const { setAirData } = useAirContext();
+  const { setForecastData } = useForecastContext();
 
   const fetchData = async (value: string, lat: number, lon: number) => {
     const data = await getWeatherData(value);
     const airData = await getAirPollution(lat, lon);
+    const forecastData = await getForecast(lat, lon);
 
-    setAirData(airData);
+    console.log(airData.list[0].components.co);
+
     setWeatherData(data);
+    setAirData(airData);
+    setForecastData(forecastData);
   };
 
   const fetchCountry = async (value: string) => {
     const data = await getCountry(value);
+
+    if (data != undefined) {
+      setLat(data[0].lat);
+      setLon(data[0].lon);
+    }
     setCountry(data);
   };
 
@@ -43,7 +57,7 @@ export default function SearchBar() {
         return "";
       }
 
-      fetchData(input, weatherData.coord.lat, weatherData.coord.lon);
+      fetchData(input, lat, lon);
       event.preventDefault();
     }
   };
@@ -57,7 +71,7 @@ export default function SearchBar() {
     }
 
     event.preventDefault();
-    fetchData(input, weatherData?.coord.lat, weatherData?.coord.lon);
+    fetchData(input, lat, lon);
   };
 
   const ChangeUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +90,7 @@ export default function SearchBar() {
       return "";
     }
 
-    fetchData(value, weatherData?.coord.lat, weatherData?.coord.lon);
+    fetchData(value, lat, lon);
   };
 
   const searchColor = input == "" ? "4a74ff" : "fff ",

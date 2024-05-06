@@ -1,9 +1,8 @@
 "use client";
 
 import { IAirData } from "@/interfaces/AirData";
-import { getAirPollution, getWeatherData } from "@/services/WeatherAPI";
+import { getAirPollution } from "@/services/WeatherAPI";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useWeatherContext } from "./weatherCtx";
 
 export interface IAirContext {
   airData?: IAirData;
@@ -17,8 +16,6 @@ export const AirPollutionProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { weatherData } = useWeatherContext();
-
   const [air, setAir] = useState<IAirData>();
 
   const setAirData = (data: IAirData) => {
@@ -31,7 +28,7 @@ export const AirPollutionProvider = ({
       setAirData(data);
     };
 
-    fetchData(-66.8792, 10.488);
+    fetchData(10.488, -66.8792);
   }, []);
 
   return (

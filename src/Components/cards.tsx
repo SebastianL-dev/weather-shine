@@ -1,4 +1,4 @@
-import { Separator1 } from "./separatos";
+import { Separator1 } from "./separators";
 import { FaRegClock } from "react-icons/fa";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineCompress, MdPlace, MdSpeed } from "react-icons/md";
@@ -8,9 +8,8 @@ import { LuWaves } from "react-icons/lu";
 import { IoEyeOutline, IoMoon, IoSunny } from "react-icons/io5";
 import { PiWindDuotone } from "react-icons/pi";
 import { TbLocation, TbSunset2 } from "react-icons/tb";
-import { useWeatherContext } from "@/contexts/weatherCtx";
 import { AirData, TempInfo } from "./apiData";
-import BarChart from "./Charts/weatherChart";
+import LineChart from "./Charts/weatherChart";
 
 export function GeneralInfo({
   name,
@@ -22,7 +21,7 @@ export function GeneralInfo({
 }: {
   name?: string;
   temp?: string;
-  like?: number;
+  like?: string;
   pressure?: number;
   humidity?: number;
   visibility?: string;
@@ -95,6 +94,7 @@ export function OtherInfoCard({
   degree,
   sunrise,
   sunset,
+  timezone,
   co,
   o3,
   so2,
@@ -106,6 +106,7 @@ export function OtherInfoCard({
   degree?: number;
   sunrise?: number;
   sunset?: number;
+  timezone?: number;
   co?: number;
   o3?: number;
   so2?: number;
@@ -124,10 +125,14 @@ export function OtherInfoCard({
           <div className="flex gap-12">
             <div className="flex flex-col gap-8 justify-end py-4">
               <WindCard speed={speed} degree={degree} />
-              <SunriseSunsetCard sunrise={sunrise} sunset={sunset} />
+              <SunriseSunsetCard
+                sunrise={sunrise}
+                sunset={sunset}
+                timezone={timezone}
+              />
             </div>
             <div className="w-[600px] h-min rounded-lg p-4 ">
-              <BarChart />
+              <LineChart />
             </div>
           </div>
           <AirPollutionCard
@@ -229,8 +234,8 @@ export function AirPollutionCard({
           <AirData symbol="O3" name="Ozone" value={o3} />
           <AirData symbol="SO2" name="Sulfur dioxide" value={so2} />
           <AirData symbol="NO2" name="Nitrogen dioxide" value={no2} />
-          <AirData symbol="PM10" name="" value={pm10} />
-          <AirData symbol="PM2.5" name="" value={pm2_5} />
+          <AirData symbol="PM10" name="Particles" value={pm10} />
+          <AirData symbol="PM2.5" name="Particles" value={pm2_5} />
         </ul>
       </div>
     </div>
@@ -240,26 +245,31 @@ export function AirPollutionCard({
 export function SunriseSunsetCard({
   sunrise,
   sunset,
+  timezone,
 }: {
   sunrise?: number;
   sunset?: number;
+  timezone?: number;
 }) {
-  const { weatherData } = useWeatherContext();
   const Dates = (date?: number) => {
     if (date === undefined) {
       return "";
     }
-    const timeStampDate = new Date(date * 1000);
-    let hours = timeStampDate.getHours(),
-      minutes = ("0" + timeStampDate.getMinutes()).slice(-2);
+    if (timezone === undefined) {
+      return "";
+    }
 
-    const am_pm = hours >= 12 ? "p.m" : "a.m";
-    hours = hours % 12;
-    hours = hours ? hours : 12;
+    const localTime = date * 1000;
+    const timeOffset = timezone * 1000;
+    const localDate = new Date(localTime + timeOffset);
 
-    const finalDate = hours + ":" + minutes + " " + am_pm;
+    const formattedLocalSunrise = localDate.toLocaleTimeString("es-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "UTC",
+    });
 
-    return finalDate;
+    return formattedLocalSunrise;
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { IWeatherData } from "@/interfaces/WeatherData";
-import { getAirPollution, getWeatherData } from "@/services/WeatherAPI";
+import { getWeatherData } from "@/services/WeatherAPI";
 
 export interface IWeatherContext {
   weatherData?: IWeatherData;
@@ -28,7 +28,6 @@ export const WeatherProvider = ({
     const fetchData = async (value: string) => {
       const data = await getWeatherData(value);
       setWeatherData(data);
-      // const dataA = await getAirPollution("-66.8792", "10.488");
     };
     fetchData("caracas");
   }, []);

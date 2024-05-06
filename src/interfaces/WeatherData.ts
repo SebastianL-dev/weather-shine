@@ -31,11 +31,3 @@ export interface ICountry {
   state: string;
   country: string;
 }
-
-// export interface ICountryName {
-//   0: {
-//     name: {
-//       common: string;
-//     };
-//   };
-// }

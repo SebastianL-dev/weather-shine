@@ -10,25 +10,18 @@ export function AirData({
   name: string;
   value?: number;
 }) {
-  const renderName =
-    name == "" ? (
-      <></>
-    ) : (
-      <span className="text-neutral-500 text-xs">{`(${name})`}</span>
-    );
-
   return (
     <li className="flex flex-col gap-2 items-center">
       <div className="flex flex-col items-center">
         <span className="text-neutral-400 text-sm">{symbol}</span>
-        {renderName}
+        <span className="text-neutral-500 text-xs">{`(${name})`}</span>
       </div>
       <span className=" text-xl">{value}</span>
     </li>
   );
 }
 
-export function TempInfo({ temp, like }: { temp?: string; like?: number }) {
+export function TempInfo({ temp, like }: { temp?: string; like?: string }) {
   return (
     <div className="flex text-neutral-200 flex-col h-full self-start gap-16 ">
       <div className="flex w-max items-center text-neutral-200 self-start">

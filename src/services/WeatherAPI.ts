@@ -28,7 +28,6 @@ export const getCountry = async (value: string) => {
     }
 
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -41,6 +40,18 @@ export const getAirPollution = async (lat: number, lon: number) => {
       `${process.env.NEXT_PUBLIC_API_URL}data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_API_KEY}`
     );
 
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getForecast = async (lat: number, lon: number) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&cnt=24&appid=${process.env.NEXT_PUBLIC_API_KEY}`
+    );
     const data = await res.json();
     console.log(data);
     return data;

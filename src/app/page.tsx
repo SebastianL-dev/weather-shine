@@ -29,7 +29,7 @@ export default function Home() {
                 : ""
             }`}
             temp={weatherData && (weatherData?.main.temp).toFixed(1)}
-            like={weatherData?.main.feels_like}
+            like={weatherData?.main.feels_like.toFixed(1)}
             pressure={weatherData?.main.pressure}
             humidity={weatherData?.main.humidity}
             visibility={
@@ -41,6 +41,7 @@ export default function Home() {
             degree={weatherData?.wind.deg}
             sunrise={weatherData?.sys.sunrise}
             sunset={weatherData?.sys.sunset}
+            timezone={weatherData?.timezone}
             co={airData?.list[0].components.co}
             o3={airData?.list[0].components.o3}
             so2={airData?.list[0].components.so2}
