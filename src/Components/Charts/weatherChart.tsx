@@ -9,8 +9,18 @@ import {
   Tooltip,
   Legend,
   PointElement,
+  TooltipItem,
 } from "chart.js";
 import { useForecastContext } from "@/contexts/forecastCtx";
+
+export interface AXD {
+  dataset: {
+    label: string;
+  };
+  parsed: {
+    y: number;
+  };
+}
 
 ChartJS.register(
   CategoryScale,
@@ -38,7 +48,7 @@ const LineChart: React.FC = () => {
         pointRadius: 3,
         pointBackgroundColor: "#4a74ff",
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: "#4a74ff",
+        pointHoverBackgroundColor: "#3667e3",
       },
     ],
   });
@@ -92,31 +102,56 @@ const LineChart: React.FC = () => {
           font: {
             size: 14,
           },
+          color: "#ababab",
         },
       },
       title: {
         display: true,
-        text: "Today's temperature",
+        text: "Temperature forecast",
         color: "#d4d4d4",
         font: {
           size: 30,
         },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (tooltipItem: TooltipItem<"line">) {
+            const label = tooltipItem.dataset.label || "";
+            const value = tooltipItem.raw as number;
+            return `${label}: ${value} °C`;
+          },
+        },
+        backgroundColor: "#101010",
+        bodyFont: {
+          size: 14,
+        },
+        titleFont: {
+          size: 16,
+        },
+        titleColor: "#d4d4d4",
+        bodyColor: "#ababab",
+        displayColors: true,
+        borderWidth: 1,
+        borderColor: "#00000000",
       },
     },
     scales: {
       x: {
         grid: {
           display: true,
-          color: "#404040",
+          color: "#3b3b3b",
         },
         ticks: {
           color: "#8c8c8c",
+          font: {
+            size: 11,
+          },
         },
       },
       y: {
         grid: {
           display: true,
-          color: "#404040",
+          color: "#3b3b3b",
         },
         ticks: {
           color: "#8c8c8c",

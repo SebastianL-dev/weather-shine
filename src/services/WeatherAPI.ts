@@ -53,7 +53,6 @@ export const getForecast = async (lat: number, lon: number) => {
       `${process.env.NEXT_PUBLIC_API_URL}data/2.5/forecast?units=metric&lat=${lat}&lon=${lon}&cnt=24&appid=${process.env.NEXT_PUBLIC_API_KEY}`
     );
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

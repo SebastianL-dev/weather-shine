@@ -30,8 +30,6 @@ export default function SearchBar() {
     const airData = await getAirPollution(lat, lon);
     const forecastData = await getForecast(lat, lon);
 
-    console.log(airData.list[0].components.co);
-
     setWeatherData(data);
     setAirData(airData);
     setForecastData(forecastData);
@@ -40,9 +38,9 @@ export default function SearchBar() {
   const fetchCountry = async (value: string) => {
     const data = await getCountry(value);
 
-    if (data != undefined) {
-      setLat(data[0].lat);
-      setLon(data[0].lon);
+    if (data) {
+      setLat(data[0]?.lat);
+      setLon(data[0]?.lon);
     }
     setCountry(data);
   };
@@ -57,7 +55,9 @@ export default function SearchBar() {
         return "";
       }
 
-      fetchData(input, lat, lon);
+      if (lat && lon) {
+        fetchData(input, lat, lon);
+      }
       event.preventDefault();
     }
   };
@@ -71,7 +71,9 @@ export default function SearchBar() {
     }
 
     event.preventDefault();
-    fetchData(input, lat, lon);
+    if (lat && lon) {
+      fetchData(input, lat, lon);
+    }
   };
 
   const ChangeUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,14 +85,9 @@ export default function SearchBar() {
   };
 
   const clickCity = (value: string) => {
-    if (
-      weatherData?.coord.lat === undefined ||
-      weatherData.coord.lon === undefined
-    ) {
-      return "";
+    if (lat && lon) {
+      fetchData(input, lat, lon);
     }
-
-    fetchData(value, lat, lon);
   };
 
   const searchColor = input == "" ? "4a74ff" : "fff ",

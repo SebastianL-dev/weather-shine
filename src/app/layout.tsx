@@ -16,7 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className=" bg-neutral-900">
+      <body className=" bg-neutral-950 bg">
+        <div className="stars_1 -z-10 overflow-hidden fixed"></div>
+        <div className="stars_2 -z-10 overflow-hidden fixed"></div>
+        <div className="stars_3 -z-10 overflow-hidden fixed"></div>
         <WeatherProvider>
           <ForecastProvider>
             <AirPollutionProvider>{children}</AirPollutionProvider>

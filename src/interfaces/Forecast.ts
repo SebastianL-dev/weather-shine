@@ -3,6 +3,11 @@ type ForecastListItem = {
   main: {
     temp: number;
   };
+  weather: {
+    0: {
+      main: string;
+    };
+  };
 };
 
 export interface IForecastData {
