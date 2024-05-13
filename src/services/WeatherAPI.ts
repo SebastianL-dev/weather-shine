@@ -1,6 +1,5 @@
-import { useWeatherContext } from "@/contexts/weatherCtx";
-
 export const getWeatherData = async (value: string) => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}data/2.5/weather?units=metric&q=${value}&appid=${process.env.NEXT_PUBLIC_API_KEY}`

@@ -4,7 +4,7 @@ import SearchBar from "./search";
 
 export default function GlobalHeader() {
   return (
-    <header className="flex fixed w-full">
+    <header className="flex fixed w-full z-10">
       <div className="flex text-white p-4 mx-auto w-full items-center justify-around">
         <h1 className=" text-3xl">WeatherShine</h1>
         <nav className=" h-min">
@@ -17,7 +17,7 @@ export default function GlobalHeader() {
             <NavButtons text="Home" />
           </ul>
         </nav>
-        <div>
+        <div className="">
           <SearchBar />
         </div>
       </div>

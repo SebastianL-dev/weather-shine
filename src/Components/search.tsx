@@ -90,34 +90,33 @@ export default function SearchBar() {
     }
   };
 
-  const searchColor = input == "" ? "4a74ff" : "fff ",
-    searchStyle = input == "" ? "rounded-lg" : "rounded-t-lg",
+  const searchStyle = input == "" ? "rounded-full" : "rounded-full",
     dropStyle = input == "" ? "opacity-0 hidden" : "opacity-100 block";
 
   return (
     <form action="" className="flex flex-col relative">
       <div
-        className={`flex items-center ${searchStyle} bg-[#222] transition-all`}
+        className={`flex items-center ${searchStyle} bg-blue-800 bg-opacity-15 border border-blue-500 border-opacity-20 transition-all gap-1`}
       >
-        <button
-          className={`px-[10px] py-[10px] text-[#${searchColor}] transition-all`}
-          onClick={ClickUpdate}
-        >
-          <FaSearch className="w-4 h-4" />
-        </button>
         <input
           type="text"
-          className="text-neutral-200 bg-transparent placeholder:text-neutral-500 text-sm font-medium pr-16 py-2 placeholder:w-min outline-none "
-          placeholder="Search your city..."
+          className="text-neutral-200 bg-transparent placeholder:text-blue-200 placeholder:text-opacity-55 text-sm font-medium pl-4 py-2 placeholder:w-min outline-none "
+          placeholder="Type a city name..."
           onKeyDown={Update}
           onChange={ChangeUpdate}
           value={input}
         />
+        <button
+          className={`px-[12px] text-sm py-1 transition-all text-blue-100 text-opacity-80 bg-blue-500 rounded-full m-1 border border-blue-500 bg-opacity-15 border-opacity-25`}
+          onClick={ClickUpdate}
+        >
+          Search
+        </button>
       </div>
       <div
-        className={`flex items-start w-full absolute top-12 ${dropStyle} transition-all duration-200`}
+        className={`flex items-start w-full absolute top-12 ${dropStyle} transition-all duration-200 `}
       >
-        <ul className="flex flex-col gap-2 bg bg-[#202020] w-full rounded-b-lg transition-all">
+        <ul className="flex flex-col gap-2 bg-blue-500 bg-opacity-15 mt-2 border border-blue-500 border-opacity-20 backdrop-brightness-[0.3] backdrop-blur w-full rounded-lg transition-all overflow-hidden">
           {country &&
             country.map((countryD, index) => {
               const { country, state, name } = countryD;
@@ -128,7 +127,7 @@ export default function SearchBar() {
 
               return (
                 <li
-                  className="flex gap-2 items-center hover:bg-[#2c2c2c] transition-all duration-200"
+                  className="flex gap-2 items-center hover:bg-blue-500 hover:bg-opacity-15 transition-all duration-200"
                   key={index}
                 >
                   <button
@@ -146,10 +145,10 @@ export default function SearchBar() {
                       className="transition-all w-8 h-auto"
                     />
                     <div className="flex flex-col">
-                      <span className="font-semibold text-neutral-200 text-sm text-nowrap max-w-[175px] truncate text-start">
+                      <span className="font-semibold text-blue-100 text-opacity-80 text-sm text-nowrap max-w-[175px] truncate text-start">
                         {name}
                       </span>
-                      <p className="text-xs font-semibold text-neutral-500 text-nowrap max-w-[175px] truncate text-start">
+                      <p className="text-xs font-semibold text-blue-300 text-opacity-40 text-nowrap max-w-[175px] truncate text-start">
                         {state}
                         {comma}
                         {getCountryName(country)}

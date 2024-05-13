@@ -42,11 +42,11 @@ const LineChart: React.FC = () => {
         label: "Temperature",
         data: [""],
         fill: false,
-        backgroundColor: "#4a74ff01",
-        borderColor: "#4a74ff8c",
+        backgroundColor: "#4a74ff00",
+        borderColor: "#3b82f64c",
         tension: 0.1,
         pointRadius: 3,
-        pointBackgroundColor: "#4a74ff",
+        pointBackgroundColor: "#3b82f6",
         pointHoverRadius: 5,
         pointHoverBackgroundColor: "#3667e3",
       },
@@ -102,13 +102,13 @@ const LineChart: React.FC = () => {
           font: {
             size: 14,
           },
-          color: "#ababab",
+          color: "#bfdbfe99",
         },
       },
       title: {
         display: true,
         text: "Temperature forecast",
-        color: "#d4d4d4",
+        color: "#fff",
         font: {
           size: 30,
         },
@@ -138,11 +138,10 @@ const LineChart: React.FC = () => {
     scales: {
       x: {
         grid: {
-          display: true,
-          color: "#3b3b3b",
+          display: false,
         },
         ticks: {
-          color: "#8c8c8c",
+          color: "#bfdbfe8c",
           font: {
             size: 11,
           },
@@ -151,10 +150,10 @@ const LineChart: React.FC = () => {
       y: {
         grid: {
           display: true,
-          color: "#3b3b3b",
+          color: "#bfdbfe2f",
         },
         ticks: {
-          color: "#8c8c8c",
+          color: "#bfdbfe8c",
         },
       },
     },

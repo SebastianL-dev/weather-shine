@@ -24,7 +24,7 @@
 }
 
 .swiper-pagination-bullet {
-  background-color: #4a74ff !important;
+  background-color: #3b82f6 !important;
   transition: all 0.3s ease !important;
 }
 
@@ -32,7 +32,7 @@
 .swiper-pagination-bullet-active-next-next,
 .swiper-pagination-bullet-active-prev,
 .swiper-pagination-bullet-active-prev-prev {
-  background-color: #a7bcff !important;
+  background-color: #3b82f6 !important;
   transition: all 0.3s ease !important;
 }
 
@@ -42,7 +42,7 @@
 .swiper-button-prev::after {
   border-radius: 6px;
   background-color: #00000000 !important;
-  color: #4a74ff !important;
+  color: #3b82f6 !important;
   font-size: 25px !important;
   font-weight: bolder !important;
   transition: all 0.3s ease !important;
@@ -50,7 +50,7 @@
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  background-color: #4a74ff !important;
+  background-color: #327aff63 !important;
 }
 
 .swiper-button-next:hover::after,
@@ -58,13 +58,13 @@
   color: #ececec !important;
 }
 
+.swiper-button-next {
+  padding-left: 2px;
+}
+
 .bg {
   background: rgb(7, 17, 32);
-  background: radial-gradient(
-    circle,
-    rgba(7, 17, 32, 1) 30%,
-    rgb(12, 12, 12) 73%
-  );
+  background: radial-gradient(circle, rgb(6, 14, 29) 30%, rgb(12, 12, 12) 73%);
 }
 
 .bdcrd {

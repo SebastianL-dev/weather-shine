@@ -2,7 +2,7 @@ import { Separator1 } from "./separators";
 import { FaRegClock } from "react-icons/fa";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineCompress, MdPlace, MdSpeed } from "react-icons/md";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, Suspense } from "react";
 import { RiWaterPercentLine } from "react-icons/ri";
 import { LuWaves } from "react-icons/lu";
 import { IoEyeOutline, IoMoon, IoSunny } from "react-icons/io5";
@@ -11,6 +11,9 @@ import { TbLocation, TbSunset2 } from "react-icons/tb";
 import { AirData, TempInfo } from "./apiData";
 import LineChart from "./Charts/weatherChart";
 import { TempSwiper } from "./Sliders/tempSwiper";
+import { MiniCardSkeleton } from "./skeletons/minicardSkeleton";
+import { getWeatherData } from "@/services/WeatherAPI";
+// import Loading from "@/app/dashboard/loading";
 
 export function GeneralInfo({
   name,
@@ -28,7 +31,7 @@ export function GeneralInfo({
   visibility?: string;
 }) {
   return (
-    <div className="flex text-white asd w-max p-4 rounded-xl flex-col gap-8 h-max z-0 backdrop-blur-[1px] bg-blue-700 bg-opacity-5 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd">
+    <div className="flex text-white asd w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd">
       <div className="flex gap-2 items-center after:w-full after:h-[58px] after:bg-blue-500 after:absolute after:bg-opacity-10 after:inset-0 after:-z-10 after:border-b-[1px] after:border-blue-950 after:border-opacity-80">
         <MdPlace className="h-6 w-6 text-[#4a74ff]" />
         <h1 className="font-medium text-xl text-white">{name}</h1>
@@ -38,18 +41,20 @@ export function GeneralInfo({
           <div className="flex gap-8 h-max items-end">
             <TempInfo temp={temp} like={like} />
             <div className="grid gap-3 w-calc(100% + 20px) items-end">
-              <MiniCard
-                tittle="Pressure"
-                image={
-                  <MdOutlineCompress className="w-5 h-5 text-blue-300 text-opacity-55" />
-                }
-                info={`${pressure} hPa`}
-                temp={<></>}
-              />
+              <Suspense fallback={<div>Hola...</div>}>
+                <MiniCard
+                  tittle="Pressure"
+                  image={
+                    <MdOutlineCompress className="w-5 h-5 text-blue-200 text-opacity-55" />
+                  }
+                  info={`${pressure} hPa`}
+                  temp={<></>}
+                />
+              </Suspense>
               <MiniCard
                 tittle="Humidity"
                 image={
-                  <RiWaterPercentLine className="w-5 h-5 text-blue-300 text-opacity-55" />
+                  <RiWaterPercentLine className="w-5 h-5 text-blue-200 text-opacity-55" />
                 }
                 info={`${humidity}%`}
                 temp={<></>}
@@ -57,7 +62,7 @@ export function GeneralInfo({
               <MiniCard
                 tittle="Visibility"
                 image={
-                  <IoEyeOutline className="w-5 h-5 text-blue-300 text-opacity-55" />
+                  <IoEyeOutline className="w-5 h-5 text-blue-200 text-opacity-55" />
                 }
                 info={`${visibility} Km`}
                 temp={<></>}
@@ -65,7 +70,7 @@ export function GeneralInfo({
               <MiniCard
                 tittle="Sea level"
                 image={
-                  <LuWaves className="w-5 h-5 text-blue-300 text-opacity-55" />
+                  <LuWaves className="w-5 h-5 text-blue-200 text-opacity-55" />
                 }
                 info=""
                 temp={<></>}
@@ -120,15 +125,12 @@ export function OtherInfoCard({
   pm2_5?: number;
 }) {
   return (
-    <div className="flex text-white w-max p-4 rounded-xl flex-col gap-8 h-max z-0 backdrop-blur-[1px] bg-blue-700 bg-opacity-5 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd">
+    <div className="flex text-white w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 z-0 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd">
       <div className="flex rounded-md h-full w-full flex-col gap-4">
-        <div className="after:w-full after:h-[58px] after:bg-blue-500 after:absolute after:bg-opacity-10 after:inset-0 after:-z-10 after:border-b-[1px] after:border-blue-950 after:border-opacity-80">
-          <h2 className="font-semibold text-xl">General</h2>
-        </div>
         {/* <Separator1 /> */}
         <div className="flex flex-col gap-4">
           <div className="flex gap-12">
-            <div className="flex flex-col gap-8 justify-end py-4">
+            <div className="flex flex-col gap-8 justify-end pb-4">
               <WindCard speed={speed} degree={degree} />
               <SunriseSunsetCard
                 sunrise={sunrise}
@@ -188,25 +190,25 @@ export function WindCard({
   });
 
   return (
-    <div className="bg-blue-950 bg-opacity-50 border-[1px] border-blue-900 border-opacity-30 py-3 px-4 grid gap-6 rounded-md">
-      <div className="flex gap-2">
-        <h1 className="text-base font-medium text-neutral-300">
-          Wind information
-        </h1>
-        <PiWindDuotone className="h-6 w-6 text-[#4a74ff]" />
+    <div className="bg-blue-500 bg-opacity-5 border-[1px] border-blue-900 border-opacity-30 grid gap-6 rounded-md">
+      <div className="flex gap-2 bg-blue-500 bg-opacity-10 py-2.5 px-4 rounded-t-md">
+        <h1 className="text-base font-medium text-white">Wind information</h1>
+        <PiWindDuotone className="h-6 w-6 text-white" />
       </div>
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col gap-3 pb-3 px-4">
         <li className="flex text-sm gap-2 items-center">
-          <MdSpeed className="h-6 w-6 text-neutral-400" />
+          <MdSpeed className="h-6 w-6 text-blue-200 text-opacity-55" />
           <div className="flex justify-between w-full">
-            <span className="text-neutral-400">Speed</span>{" "}
+            <span className="text-blue-200 text-opacity-55">Speed</span>{" "}
             <span>{speed} m/s</span>
           </div>
         </li>
         <li className="flex text-sm gap-2 items-center">
-          <TbLocation className={`h-6 w-6 text-neutral-400 ${calcDeg}`} />
+          <TbLocation
+            className={`h-6 w-6 ${calcDeg} text-blue-200 text-opacity-55`}
+          />
           <div className="flex justify-between w-full">
-            <span className="text-neutral-400">Degree</span>{" "}
+            <span className="text-blue-200 text-opacity-55">Degree</span>{" "}
             <span>{degree}°</span>
           </div>
         </li>
@@ -285,11 +287,11 @@ export function AirPollutionCard({
   });
   const getColorClass = (finalIndex: number): string => {
     const colorClasses: { [key: number]: string } = {
-      1: "text-green-500 bg-green-500",
-      2: "text-cyan-500 bg-cyan-500",
-      3: "text-yellow-500 bg-yellow-500",
-      4: "text-orange-500 bg-orange-500",
-      5: "text-red-500 bg-red-500",
+      1: "text-green-500 bg-green-500 border-green-500",
+      2: "text-cyan-500 bg-cyan-500 border-cyan-500",
+      3: "text-yellow-500 bg-yellow-500 border-yellow-500",
+      4: "text-orange-500 bg-orange-500 border-orange-500",
+      5: "text-red-500 bg-red-500 border-red-500",
     };
 
     return colorClasses[finalIndex] || "";
@@ -311,22 +313,22 @@ export function AirPollutionCard({
   const name: string = getNameClass(parseFloat(finalIndex.toFixed(0)));
 
   return (
-    <div className="bg-blue-950 bg-opacity-50 border-[1px] border-blue-900 border-opacity-30 py-3 px-4 grid gap-6 rounded-md w-max">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2">
-          <h1 className="text-base font-medium text-neutral-300">
+    <div className="bg-blue-500 bg-opacity-5 border-[1px] border-blue-900 border-opacity-30 grid gap-6 rounded-md w-max">
+      <div className="flex justify-between items-center bg-blue-500 bg-opacity-10 py-2.5 px-4 rounded-t-md">
+        <div className="flex gap-2 ">
+          <h1 className="text-base font-medium text-white">
             Air pollution (μg/m3)
           </h1>
-          <PiWindDuotone className="h-6 w-6 text-[#4a74ff]" />
+          <PiWindDuotone className="h-6 w-6 text-white" />
         </div>
         <div
-          className={`flex text-sm ${color} rounded-full bg-opacity-15 px-4 py-1`}
+          className={`flex text-sm ${color} rounded-full bg-opacity-15 px-4 py-1 border border-opacity-20 backdrop-brightness-0 backdrop-blur-sm`}
         >
-          <span className={`${color} bg-opacity-0 bg`}>{name}</span>
+          <span className={`${color} bg-opacity-0`}>{name}</span>
         </div>
       </div>
       <div>
-        <ul className="grid items-center grid-cols-3 gap-x-4 gap-y-4 w-max content-center">
+        <ul className="grid items-center grid-cols-3 gap-x-4 gap-y-4 w-max content-center px-4 pb-3">
           <AirData symbol="CO" name="carbon monoxide" value={co} />
           <AirData symbol="O3" name="Ozone" value={o3} />
           <AirData symbol="SO2" name="Sulfur dioxide" value={so2} />
@@ -370,20 +372,18 @@ export function SunriseSunsetCard({
   };
 
   return (
-    <div className="bg-blue-950 bg-opacity-50 border-[1px] border-blue-900 border-opacity-30 py-3 px-4 grid gap-6 rounded-md">
-      <div className="flex gap-2">
-        <h1 className="text-base font-medium text-neutral-300">
-          Sunrise & sunset
-        </h1>
-        <TbSunset2 className="h-6 w-6 text-[#4a74ff]" />
+    <div className="bg-blue-500 bg-opacity-5 border-[1px] border-blue-900 border-opacity-30 grid gap-6 rounded-md">
+      <div className="flex gap-2 bg-blue-500 bg-opacity-10 py-2.5 px-4 rounded-t-md">
+        <h1 className="text-base font-medium text-white">Sunrise & sunset</h1>
+        <TbSunset2 className="h-6 w-6 text-white" />
       </div>
       <div>
-        <ul className="flex justify-between gap-8">
+        <ul className="flex justify-between gap-8 pb-3 px-4">
           <li className="flex text-sm gap-2 items-center">
             <div className="flex justify-between w-full flex-col gap-2">
               <div className="flex items-center gap-2">
-                <IoSunny className="h-5 w-5 text-neutral-400" />
-                <span className="text-neutral-400">Sunrise</span>
+                <IoSunny className="h-5 w-5 text-blue-200 text-opacity-55" />
+                <span className="text-blue-200 text-opacity-55">Sunrise</span>
               </div>
               <span className=" text-2xl">{Dates(sunrise)}</span>
             </div>
@@ -391,8 +391,8 @@ export function SunriseSunsetCard({
           <li className="flex text-sm gap-2 items-center">
             <div className="flex justify-between w-full flex-col gap-2">
               <div className="flex items-center gap-2">
-                <IoMoon className={`h-5 w-5 text-neutral-400`} />
-                <span className="text-neutral-400">Sunset</span>
+                <IoMoon className={`h-5 w-5 text-blue-200 text-opacity-55`} />
+                <span className="text-blue-200 text-opacity-55">Sunset</span>
               </div>
               <span className="text-2xl">{Dates(sunset)}</span>
             </div>
@@ -416,14 +416,14 @@ export function MiniCard({
 }) {
   return (
     <div className="flex gap-4 self-start w-full">
-      <div className="flex items-center justify-between bg-blue-950 bg-opacity-50 border-[1px] border-blue-900 border-opacity-30 py-2 px-4 rounded-md h-max w-full gap-12">
+      <div className="flex items-center justify-between bg-blue-400 bg-opacity-5 border-[1px] border-blue-900 border-opacity-30 py-2 px-4 rounded-md h-max w-full gap-12">
         <div className="flex gap-2 items-center">
           {image}
-          <h1 className="text text-blue-300 text-opacity-55 text-sm self-center">
+          <h1 className="text-blue-200 text-opacity-55 text-sm self-center">
             {tittle}
           </h1>
         </div>
-        <span className="text-sm font-medium text-blue-50 opacity-80">
+        <span className="text-sm font-medium text-white opacity-90">
           {info}
         </span>
         {temp}

@@ -86,16 +86,16 @@ export function TempSwiper() {
 
           return (
             <SwiperSlide key={index}>
-              <div className="bg-blue-950 bg-opacity-50 border-[1px] border-blue-900 border-opacity-30 justify-center flex m-0 flex-col items-center p-4 gap-2 rounded-md">
-                <span>{Dates(dt)}</span>
+              <div className="bg-[#3b82f6] bg-opacity-5 border-2 border-blue-500 border-opacity-20 justify-center flex m-0 flex-col items-center p-4 gap-2 rounded-md">
+                <span className="text-blue-200 text-opacity-55">
+                  {Dates(dt)}
+                </span>
                 <WiDayCloudy className="h-16 w-16" />
                 <div className="flex gap-1 flex-col items-center">
-                  <span className="text-sm text-neutral-200">
+                  <span className="text-sm text-blue-300 text-opacity-40 ">
                     {main.temp.toFixed(1) + "°C"}
                   </span>
-                  <span className="text-sm text-neutral-200">
-                    {weather[0].main}
-                  </span>
+                  <span className="text-sm text-white">{weather[0].main}</span>
                 </div>
               </div>
             </SwiperSlide>

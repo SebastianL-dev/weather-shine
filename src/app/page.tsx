@@ -5,7 +5,7 @@ import GlobalHeader from "@/Components/header";
 import { poppins } from "@/styles/fonts";
 import { useWeatherContext } from "@/contexts/weatherCtx";
 import { CountryCode } from "@/services/Countries";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useAirContext } from "@/contexts/airCtx";
 
 export default function Home() {
@@ -36,19 +36,21 @@ export default function Home() {
               weatherData && (weatherData.visibility / 1000).toFixed(2)
             }
           />
-          <OtherInfoCard
-            speed={weatherData?.wind.speed}
-            degree={weatherData?.wind.deg}
-            sunrise={weatherData?.sys.sunrise}
-            sunset={weatherData?.sys.sunset}
-            timezone={weatherData?.timezone}
-            co={airData?.list[0].components.co}
-            o3={airData?.list[0].components.o3}
-            so2={airData?.list[0].components.so2}
-            no2={airData?.list[0].components.no2}
-            pm10={airData?.list[0].components.pm10}
-            pm2_5={airData?.list[0].components.pm2_5}
-          />
+          <Suspense fallback={<div>Hola...</div>}>
+            <OtherInfoCard
+              speed={weatherData?.wind.speed}
+              degree={weatherData?.wind.deg}
+              sunrise={weatherData?.sys.sunrise}
+              sunset={weatherData?.sys.sunset}
+              timezone={weatherData?.timezone}
+              co={airData?.list[0].components.co}
+              o3={airData?.list[0].components.o3}
+              so2={airData?.list[0].components.so2}
+              no2={airData?.list[0].components.no2}
+              pm10={airData?.list[0].components.pm10}
+              pm2_5={airData?.list[0].components.pm2_5}
+            />
+          </Suspense>
         </section>
         <h1 className="text-white"></h1>
       </main>
