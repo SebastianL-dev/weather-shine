@@ -15,6 +15,7 @@ import {
 } from "swiper/modules";
 
 import { WiDayCloudy } from "react-icons/wi";
+import SwiperSkeleton from "../skeletons/sWiperSkeleton";
 
 export function TempSwiper() {
   const { forecastData } = useForecastContext();
@@ -23,13 +24,12 @@ export function TempSwiper() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setInitialized(true);
-    }, 500);
-
+    }, 800);
     return () => clearTimeout(timer);
   }, []);
 
   if (!initialized) {
-    return <></>;
+    return <SwiperSkeleton />;
   }
 
   return (

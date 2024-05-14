@@ -12,6 +12,7 @@ import {
   TooltipItem,
 } from "chart.js";
 import { useForecastContext } from "@/contexts/forecastCtx";
+import ChartSkeleton from "../skeletons/chartSkeleton";
 
 export interface AXD {
   dataset: {
@@ -118,21 +119,21 @@ const LineChart: React.FC = () => {
           label: function (tooltipItem: TooltipItem<"line">) {
             const label = tooltipItem.dataset.label || "";
             const value = tooltipItem.raw as number;
-            return `${label}: ${value} °C`;
+            return ` ${label}: ${value} °C`;
           },
         },
-        backgroundColor: "#101010",
+        backgroundColor: "#0F224699",
         bodyFont: {
           size: 14,
         },
         titleFont: {
           size: 16,
         },
-        titleColor: "#d4d4d4",
-        bodyColor: "#ababab",
-        displayColors: true,
+        titleColor: "#fff",
+        bodyColor: "#617694",
+        displayColors: false,
         borderWidth: 1,
-        borderColor: "#00000000",
+        borderColor: "#19335E",
       },
     },
     scales: {
@@ -159,7 +160,15 @@ const LineChart: React.FC = () => {
     },
   };
 
-  return <Line options={options} data={chartData} />;
+  return (
+    <>
+      {forecastData == null ? (
+        <ChartSkeleton />
+      ) : (
+        <Line options={options} data={chartData} />
+      )}
+    </>
+  );
 };
 
 export default LineChart;
