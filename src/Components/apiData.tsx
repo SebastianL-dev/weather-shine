@@ -1,5 +1,6 @@
 import { CiTempHigh } from "react-icons/ci";
 import { MiniCard } from "./cards";
+import TempSkeleton from "./skeletons/tempSkeleton";
 
 export function AirData({
   symbol,
@@ -24,11 +25,14 @@ export function AirData({
 export function TempInfo({ temp, like }: { temp?: string; like?: number }) {
   return (
     <div className="flex text-white flex-col h-full self-start gap-16 justify-between">
-      <div className="flex w-max items-center text-white self-start">
-        <span className="text-6xl font-semibold">{temp}</span>
-        <span className="text-4xl font-semibold self-start mt-2">°C</span>
-        <CiTempHigh className="h-20 w-20" />
-      </div>
+      {temp == undefined || like == undefined ? (
+        <TempSkeleton />
+      ) : (
+        <div className="flex w-full text-white justify-center">
+          <span className="text-[52px] font-semibold self-center flex w-max">{`${temp}°C`}</span>
+          {/* <CiTempHigh className="h-20 w-20" /> */}
+        </div>
+      )}
       <MiniCard units="°C" tittle="Feels like" image={<></>} info={like} />
     </div>
   );

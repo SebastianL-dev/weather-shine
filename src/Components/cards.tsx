@@ -23,6 +23,8 @@ export function GeneralInfo({
   pressure,
   humidity,
   visibility,
+  timezone,
+  dt,
 }: {
   name?: string;
   temp?: string;
@@ -30,9 +32,31 @@ export function GeneralInfo({
   pressure?: number;
   humidity?: number;
   visibility?: number;
+  timezone?: number;
+  dt?: number;
 }) {
+  const Dates = (date?: number) => {
+    if (date === undefined) {
+      return "";
+    }
+    if (timezone === undefined) {
+      return "";
+    }
+
+    const localTime = date * 1000;
+    const timeOffset = timezone * 1000;
+    const localDate = new Date(localTime + timeOffset);
+
+    const formattedLocalSunrise = localDate.toLocaleTimeString("es-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      timeZone: "UTC",
+    });
+
+    return formattedLocalSunrise;
+  };
   return (
-    <div className="flex text-white asd w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd">
+    <div className="flex text-white asd w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd min-w-[523.28px]">
       <div className="flex gap-2 items-center after:w-full after:h-[58px] after:bg-blue-500 after:absolute after:bg-opacity-10 after:inset-0 after:-z-10 after:border-b-[1px] after:border-blue-950 after:border-opacity-80">
         <MdPlace className="h-6 w-6 text-[#4a74ff]" />
         <h1 className="font-medium text-xl text-white">{name}</h1>
@@ -77,19 +101,15 @@ export function GeneralInfo({
             </div>
           </div>
           <div className="flex flex-col gap-1 w-full">
-            <span className="text-neutral-200">Date</span>
+            {/* <span className="text-neutral-200">Date</span> */}
             <Separator1 />
-            <div className="flex gap-2 items-center text-neutral-300">
+            <div className="flex gap-2 items-center text-blue-200 opacity-45">
               <FaRegClock />
-              <span className="font-medium text-sm text-neutral-500">
-                22:30pm
-              </span>
+              <span className="font-medium text-sm">{Dates(dt)}</span>
             </div>
-            <div className="flex gap-2 items-center text-neutral-300">
+            <div className="flex gap-2 items-center text-blue-200 opacity-45">
               <IoIosCalendar />
-              <span className="font-medium text-sm text-neutral-500">
-                Wednesday 2, Jun
-              </span>
+              <span className="font-medium text-sm">Wednesday 2, Jun</span>
             </div>
           </div>
         </div>
@@ -447,17 +467,17 @@ export function MiniCard({
   units: string;
 }) {
   return (
-    <div>
+    <>
       {info == undefined ? (
         <MiniCardSkeleton />
       ) : (
-        <div className="flex gap-4 self-start w-full">
+        <div className="flex gap-4 self-start w-full min-w-[228.69px]">
           <div className="flex items-center justify-between bg-blue-400 bg-opacity-5 border-[1px] border-blue-900 border-opacity-30 py-2 px-4 rounded-md h-max w-full gap-12">
             <div className="flex gap-2 items-center">
               {image}
-              <h1 className="text-blue-200 text-opacity-55 text-sm self-center">
+              <span className="text-blue-200 text-opacity-55 text-sm self-center">
                 {tittle}
-              </h1>
+              </span>
             </div>
             <span className="text-sm font-medium text-white opacity-90">
               {`${info} ${units}`}
@@ -465,6 +485,6 @@ export function MiniCard({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

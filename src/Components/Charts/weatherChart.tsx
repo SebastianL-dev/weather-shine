@@ -122,7 +122,7 @@ const LineChart: React.FC = () => {
             return ` ${label}: ${value} °C`;
           },
         },
-        backgroundColor: "#0F224699",
+        backgroundColor: "#0F2246cc",
         bodyFont: {
           size: 14,
         },

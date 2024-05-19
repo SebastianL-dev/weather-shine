@@ -5,8 +5,8 @@ import GlobalHeader from "@/Components/header";
 import { poppins } from "@/styles/fonts";
 import { useWeatherContext } from "@/contexts/weatherCtx";
 import { CountryCode } from "@/services/Countries";
-import { Suspense } from "react";
 import { useAirContext } from "@/contexts/airCtx";
+import RMap from "@/services/Map";
 
 export default function Home() {
   const { weatherData } = useWeatherContext();
@@ -19,26 +19,32 @@ export default function Home() {
     <>
       <GlobalHeader />
       <main
-        className={`flex flex-col gap-6 pt-40 ${poppins.className} antialiased mx-auto w-max`}
+        className={`flex flex-col gap-6 pt-40 ${poppins.className} antialiased mx-auto`}
       >
-        <section className=" gap-12 flex-wrap grid grid-flow-col">
-          <GeneralInfo
-            name={`${weatherData?.name} - ${
-              weatherData?.sys?.country
-                ? getCountryName(weatherData.sys.country)
-                : ""
-            }`}
-            temp={weatherData && (weatherData?.main.temp).toFixed(1)}
-            like={
-              weatherData && parseFloat(weatherData.main.feels_like.toFixed(1))
-            }
-            pressure={weatherData?.main.pressure}
-            humidity={weatherData?.main.humidity}
-            visibility={
-              weatherData &&
-              parseFloat((weatherData.visibility / 1000).toFixed(2))
-            }
-          />
+        <section className=" gap-8 flex-wrap grid 2xl:grid-flow-col grid-flow-row justify-items-center w-min m-auto">
+          <div className="flex 2xl:justify-self-end 2xl:flex-col gap-4 justify-between justify-items-center w-full">
+            <GeneralInfo
+              name={`${weatherData?.name} - ${
+                weatherData?.sys?.country
+                  ? getCountryName(weatherData.sys.country)
+                  : ""
+              }`}
+              temp={weatherData && (weatherData?.main.temp).toFixed(1)}
+              like={
+                weatherData &&
+                parseFloat(weatherData.main.feels_like.toFixed(1))
+              }
+              pressure={weatherData?.main.pressure}
+              humidity={weatherData?.main.humidity}
+              visibility={
+                weatherData &&
+                parseFloat((weatherData.visibility / 1000).toFixed(2))
+              }
+              timezone={weatherData?.timezone}
+              dt={weatherData?.dt}
+            />
+            <RMap />
+          </div>
           <OtherInfoCard
             speed={weatherData?.wind.speed}
             degree={weatherData?.wind.deg}
