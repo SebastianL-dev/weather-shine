@@ -144,11 +144,11 @@ export function OtherInfoCard({
   pm2_5?: number;
 }) {
   return (
-    <div className="flex text-white w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 z-0 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd transition-all ease-linear">
+    <div className="flex text-white w-max p-4 rounded-xl flex-col gap-8 h-max backdrop-blur-[1px] bg-blue-700 bg-opacity-5 z-0 border-[1px] border-blue-950 border-opacity-80 relative overflow-hidden bdcrd transition-all ease-linear max-lg:max-w-[523.38px]">
       <div className="flex rounded-md h-full w-full flex-col gap-4">
         {/* <Separator1 /> */}
-        <div className="flex flex-col gap-4">
-          <div className="flex gap-12">
+        <div className="flex flex-col gap-4 max-lg:gap-12">
+          <div className="flex gap-12 max-lg:flex-col">
             <div className="flex flex-col gap-8 justify-end pb-4">
               <WindCard speed={speed} degree={degree} />
               <SunriseSunsetCard
@@ -157,11 +157,11 @@ export function OtherInfoCard({
                 timezone={timezone}
               />
             </div>
-            <div className="w-[600px] h-min rounded-lg p-4 ">
+            <div className="w-[600px] h-min rounded-lg p-4 max-lg:w-[480px] ">
               <LineChart />
             </div>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center max-lg:flex-col">
             <AirPollutionCard
               co={co}
               o3={o3}

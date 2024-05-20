@@ -22,7 +22,7 @@ export default function Home() {
         className={`flex flex-col gap-6 pt-40 ${poppins.className} antialiased mx-auto`}
       >
         <section className=" gap-8 flex-wrap grid 2xl:grid-flow-col grid-flow-row justify-items-center w-min m-auto">
-          <div className="flex 2xl:justify-self-end 2xl:flex-col gap-4 justify-between justify-items-center w-full">
+          <div className="flex flex-col 2xl:justify-self-end max-2xl:flex-row gap-4 justify-between justify-items-center w-full max-lg:flex-col">
             <GeneralInfo
               name={`${weatherData?.name} - ${
                 weatherData?.sys?.country

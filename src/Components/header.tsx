@@ -9,7 +9,7 @@ export default function GlobalHeader() {
         <h1 className=" text-3xl">WeatherShine</h1>
         <nav className=" h-min">
           <ul
-            className={`flex gap-2 ${poppins.className} antialiased text-sm text-neutral-400 font-medium`}
+            className={`flex gap-2 ${poppins.className} antialiased text-sm text-neutral-400 font-medium max-lg:hidden`}
           >
             <NavButtons text="Home" />
             <NavButtons text="Home" />
