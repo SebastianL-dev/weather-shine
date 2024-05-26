@@ -6,7 +6,7 @@ import { poppins } from "@/styles/fonts";
 import { useWeatherContext } from "@/contexts/weatherCtx";
 import { CountryCode } from "@/services/Countries";
 import { useAirContext } from "@/contexts/airCtx";
-import RMap from "@/services/Map";
+// import RMap from "@/services/Map";
 
 export default function Home() {
   const { weatherData } = useWeatherContext();
@@ -43,7 +43,7 @@ export default function Home() {
               timezone={weatherData?.timezone}
               dt={weatherData?.dt}
             />
-            <RMap />
+            {/* <RMap /> */}
           </div>
           <OtherInfoCard
             speed={weatherData?.wind.speed}
